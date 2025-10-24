@@ -26,9 +26,9 @@ thead.addEventListener('click', (e) => {
     let bText = b.children[index].textContent.trim();
 
     // liczby
-    if (!isNaN(Number(aText.replace(/[\$,]/g, '')))) {
-      aText = Number(aText.replace(/[\$,]/g, ''));
-      bText = Number(bText.replace(/[\$,]/g, ''));
+    if (!isNaN(Number(aText.replace(/[$,]/g, '')))) {
+      aText = Number(aText.replace(/[$,]/g, ''));
+      bText = Number(bText.replace(/[$,]/g, ''));
     }
 
     if (direction === 'ASC') {
@@ -84,22 +84,22 @@ document.body.prepend(notification);
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   notification.textContent = '';
-  notification.className = '';
+  notification.classList.remove('error', 'success');
   
-  const name = form.querySelector('[data-qa="name"]').value.trim();
+  const employeeName = form.querySelector('[data-qa="name"]').value.trim();
   const position = form.querySelector('[data-qa="position"]').value.trim();
   const office = form.querySelector('[data-qa="office"]').value;
   const age = form.querySelector('[data-qa="age"]').value;
   const salary = form.querySelector('[data-qa="salary"]').value;
 
   // WALIDACJA
-  if (!name || !position || !office || age === '' || salary === '') {
+  if (!employeeName || !position || !office || age === '' || salary === '') {
     notification.textContent = 'All fields are required.';
     notification.classList.add('error');
     return;
   }
 
-  if (name.length < 4) {
+  if (employeeName.length < 4) {
     notification.textContent = 'Name must be at least 4 characters.';
     notification.classList.add('error');
     return;
@@ -114,10 +114,10 @@ form.addEventListener('submit', (e) => {
 
   const salaryNum = Number(salary);
 
-  // DODANIE WIERZCHA
+  // DODANIE WIERSZA
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td>${name}</td>
+    <td>${employeeName}</td>
     <td>${position}</td>
     <td>${office}</td>
     <td>${ageNum}</td>
